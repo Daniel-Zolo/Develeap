@@ -1,10 +1,16 @@
 pipeline {
     agent any
 
-    stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: 'refs/remotes/origin/main']],
+                    userRemoteConfigs: [[
+                        credentialsId: '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',
+                        url: 'https://github.com/Daniel-Zolo/Develeap.git'
+                    ]]
+                ])
             }
         }
         
