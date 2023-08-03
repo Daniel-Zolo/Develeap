@@ -14,6 +14,7 @@ pipeline {
                     def imageName = 'develeapimg'
                     def imageTag = env.BUILD_ID
                     def dockerImage = docker.build("${imageName}:${imageTag}", '.')
+                    echo "Docker image built: ${imageName}:${imageTag}"
                 }
             }
         }
@@ -26,6 +27,7 @@ pipeline {
                         def imageName = 'develeapimg'
                         def imageTag = env.BUILD_ID
                         dockerImage.push("${imageName}:${imageTag}")
+                        echo "Docker image pushed to ECR: ${imageName}:${imageTag}"
                     }
                 }
             }
