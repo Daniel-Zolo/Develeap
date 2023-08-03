@@ -1,19 +1,22 @@
 pipeline {
     agent any
 
+    stages {
         stage('Checkout') {
             steps {
-                checkout([
-                    $class: 'GitSCM',
-                    branches: [[name: 'refs/remotes/origin/main']],
-                    userRemoteConfigs: [[
-                        credentialsId: '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',
-                        url: 'https://github.com/Daniel-Zolo/Develeap.git'
-                    ]]
-                ])
+                script {
+                    checkout([
+                        $class: 'GitSCM',
+                        branches: [[name: 'refs/remotes/origin/main']],
+                        userRemoteConfigs: [[
+                            credentialsId: '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',
+                            url: 'https://github.com/Daniel-Zolo/Develeap.git'
+                        ]]
+                    ])
+                }
             }
         }
-        
+
         stage('Build Docker Image') {
             steps {
                 script {
@@ -24,7 +27,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Push to ECR') {
             steps {
                 script {
@@ -39,3 +42,4 @@ pipeline {
             }
         }
     }
+}
