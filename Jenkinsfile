@@ -22,7 +22,7 @@ pipeline {
         stage('Push to ECR') {
             steps {
                 script {
-                    def ecrCreds = awsCreds('aws-credentials-id')
+                    def ecrCreds = awsCreds('AKIARAIVMLW6SAWR5O5H')
                     docker.withRegistry('', ecrCreds) {
                         def imageName = 'develeapimg'
                         def imageTag = env.BUILD_ID
