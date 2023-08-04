@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_REGISTRY = '069301198269.dkr.ecr.eu-north-1.amazonaws.com/develeapimg'
+        ECR_REPO_NAME = 'develeapimg'
+        AWS_REGION = 'eu-north-1'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -31,12 +37,12 @@ pipeline {
         stage('Push to ECR') {
             steps {
                 script {
-                    def ecrCreds = awsCreds('AKIARAIVMLW6SAWR5O5H')
-                    docker.withRegistry('', ecrCreds) {
-                        def imageName = 'develeapimg'
-                        def imageTag = env.BUILD_ID
-                        dockerImage.push("${imageName}:${imageTag}")
-                        echo "Docker image pushed to ECR: ${imageName}:${imageTag}"
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '069301198269', accessKeyVariable: 'AKIARAIVMLW6SAWR5O5H', secretKeyVariable: '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']]) {
+                        sh '''
+                            eval $(aws ecr get-login --no-include-email --region ${AWS_REGION})
+                            docker tag develeapimg:${BUILD_ID} ${DOCKER_REGISTRY}/${ECR_REPO_NAME}:${BUILD_ID}
+                            docker push ${DOCKER_REGISTRY}/${ECR_REPO_NAME}:${BUILD_ID}
+                        '''
                     }
                 }
             }
