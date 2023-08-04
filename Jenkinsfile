@@ -19,9 +19,11 @@ pipeline {
                 }
             }
         }
-        stage('Test'){
-            steps {
-                 echo 'Empty'
+        stage('Run') { 
+            steps { 
+                sh 'docker build -t docker run -p 8080:8080 develeapimg:latest .'
+
+                }
             }
         }
         stage('Deploy') {
