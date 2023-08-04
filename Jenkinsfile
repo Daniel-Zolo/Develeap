@@ -37,7 +37,7 @@ pipeline {
         stage('Push to ECR') {
             steps {
                 script {
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'Develeap', accessKeyVariable: 'AKIARAIVMLW6SAWR5O5H', secretKeyVariable: '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']]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'Develeap', accessKeyVariable: 'AKIARAIVMLW6UAE4K4EI', secretKeyVariable: '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']]) {
                         def awsLogin = sh(script: "aws ecr get-login --no-include-email --region eu-north-1", returnStdout: true).trim()
                         sh(script: "${awsLogin}")
                         sh(script: "docker tag develeapimg:21 069301198269.dkr.ecr.eu-north-1.amazonaws.com/develeapimg/develeapimg:21")
