@@ -8,4 +8,4 @@ CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 EXPOSE 80
 WORKDIR /var/www/html
 VOLUME /var/log/apache2
-ADD site/site.tar.gz /var/www/html
+ADD /site /var/www/html
