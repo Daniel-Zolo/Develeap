@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Run') { 
             steps { 
-                sh 'docker run -p 8080:8080 develeapimg:latest .'
+                sh 'docker run -d --name DeveleapProject -p 9080:80 develeapimg'
                 }
             }
         stage('Deploy') {
