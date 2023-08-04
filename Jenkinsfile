@@ -38,11 +38,10 @@ pipeline {
             steps {
                 script {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'Develeap', accessKeyVariable: 'AKIARAIVMLW6SAWR5O5H', secretKeyVariable: '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']]) {
-                        sh '''
-                            eval $(aws ecr get-login --no-include-email --region ${AWS_REGION})
-                            docker tag develeapimg:${BUILD_ID} ${DOCKER_REGISTRY}/${ECR_REPO_NAME}:${BUILD_ID}
-                            docker push ${DOCKER_REGISTRY}/${ECR_REPO_NAME}:${BUILD_ID}
-                        '''
+                        def awsLogin = sh(script: "aws ecr get-login --no-include-email --region eu-north-1", returnStdout: true).trim()
+                        sh(script: "${awsLogin}")
+                        sh(script: "docker tag develeapimg:21 069301198269.dkr.ecr.eu-north-1.amazonaws.com/develeapimg/develeapimg:21")
+                        sh(script: "docker push 069301198269.dkr.ecr.eu-north-1.amazonaws.com/develeapimg/develeapimg:21")
                     }
                 }
             }
