@@ -19,4 +19,3 @@ spec:
           image: 069301198269.dkr.ecr.eu-north-1.amazonaws.com/develeapimg:latest
           ports:
             - containerPort: 80
-
