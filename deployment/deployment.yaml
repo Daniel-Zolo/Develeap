@@ -2,16 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: develeap-deployment
+  labels:
+    app: develeap
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: develeap-app
+      app: develeap
   template:
     metadata:
       labels:
-        app: develeap-app
+        app: develeap
     spec:
       containers:
-        - name: DeveleapEKS
-          image: develeapimg:latest
+        - name: develeap-container
+          image: 069301198269.dkr.ecr.eu-north-1.amazonaws.com/develeapimg:latest
+          ports:
+            - containerPort: 80
+
