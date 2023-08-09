@@ -1,0 +1,1 @@
+argocd app create DeveleapApp --repo https://github.com/Daniel-Zolo/Develeap.git --path deployment --dest-server https://55F0139D24BC8EE6FF9E008F6A817620.gr7.eu-north-1.eks.amazonaws.com --dest-namespace default
